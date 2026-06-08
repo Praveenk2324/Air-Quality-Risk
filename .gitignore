@@ -1,1 +1,64 @@
-re
+data/
+.vscode/
+
+# ========================
+# Python Standard
+# ========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# ========================
+# Virtual Environments
+# ========================
+venv/
+env/
+.venv/
+aiml_env/
+Include/
+Lib/
+Scripts/
+
+# ========================
+# IDEs and OS Files
+# ========================
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# ========================
+# Data (Managed by DVC)
+# ========================
+# Git should ignore these because DVC is tracking them!
+data/raw/*.csv
+data/processed/*.csv
+*.csv
+
+# ========================
+# Models & Artifacts
+# ========================
+artifacts/
+models/
+*.joblib
+*.pkl
+best_xgb_params.json
+
+# ========================
+# MLOps (MLflow & DVC)
+# ========================
+mlruns/
+mlflow.db
+# (Note: Do NOT ignore dvc.yaml or dvc.lock, Git needs those!)
+
+# ========================
+# Logs and Reports
+# ========================
+*.log
+logs/
+reports/
+
+.env
+Notebooks/
