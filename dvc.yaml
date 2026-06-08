@@ -1,0 +1,7 @@
+stages:
+  fetch:
+    cmd: python -m src.data.fetch --city Bengaluru --limit 5000
+    deps:
+      - src/data/fetch.py
+    outs:
+      - data/raw/latest.csv
