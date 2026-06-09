@@ -23,3 +23,35 @@ def assign_risk_tier(pm25: float) -> int:
         if lo <= pm25 <= hi:
             return tier
     return 3
+
+def pivot_wide(df: pd.DataFrame) -> pd.DataFrame:
+
+    df = df.copy()
+    df['timestamp'] = pd.to_datetime(df['timestamp'], utc=True)
+    df['hour'] = df['timestamp'].dt.floor('h')
+    df = df[df['parameter'].isin(['pm25', 'no2', 'o3'])]
+
+    wide = (
+        df.groupby(['location_id', 'hour', 'parameter'])['value']
+        .median()
+        .unstack('parameter')
+        .reset_index()
+    )
+    wide.columns.name = None
+    return wide
+
+def add_time_features(df: pd.DataFrame) -> pd.DataFrame:
+    df = df.copy()
+    hour = df['hour'].dt.hour
+    month = df['hour'].dt.month
+
+    df['hour_sin'] = np.sin(2 * np.pi * hour / 24)
+    df['hour_cos'] = np.cos(2 * np.pi * hour / 24)
+    df['month_sin'] = np.sin(2 * np.pi * month / 12)
+    df['month_cos'] = np.cos(2 * np.pi * month / 12)
+
+    return df
+
+def safe_split(X, y, test_size: float, random_state: int = 42):
+    class_count = y.value_counts()
+    min_count = class
