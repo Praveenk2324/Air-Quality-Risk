@@ -1,6 +1,6 @@
 stages:
   fetch:
-    cmd: python -m src.data.fetch --city Bengaluru --limit 5000
+    cmd: python -m src.data.fetch --lat 12.9716 --lon 77.5946 --radius 25000 --city Bengaluru
     deps:
       - src/data/fetch.py
     outs:

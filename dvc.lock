@@ -1,0 +1,15 @@
+schema: '2.0'
+stages:
+  fetch:
+    cmd: python -m src.data.fetch --lat 12.9716 --lon 77.5946 --radius 25000 
+      --city Bengaluru
+    deps:
+    - path: src/data/fetch.py
+      hash: md5
+      md5: 59bd2a767587c8937bee18254dfda2b5
+      size: 7981
+    outs:
+    - path: data/raw/latest.csv
+      hash: md5
+      md5: 1cc9fd6171ba9dff2d73f25f6c9dc420
+      size: 1247695
