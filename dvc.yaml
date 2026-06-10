@@ -5,3 +5,14 @@ stages:
       - src/data/fetch.py
     outs:
       - data/raw/latest.csv
+    
+  preprocess:
+    cmd: python -m src.data.preprocess
+    deps:
+      - src/data/preprocess.py
+      - data/raw/latest.csv
+    outs:
+      - data/processed/train.csv
+      - data/processed/val.csv
+      - data/processed/test.csv
+      - data/processed/scaler.pkl
