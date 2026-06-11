@@ -1,6 +1,6 @@
 {
-  "best_val_f1": 0.8857,
-  "final_val_loss": 0.2823,
-  "final_val_accuracy": 0.8885,
+  "best_val_f1": 0.9592,
+  "final_val_loss": 0.1547,
+  "final_val_accuracy": 0.9442,
   "epochs": 30
 }

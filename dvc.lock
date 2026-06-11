@@ -42,8 +42,7 @@ stages:
       md5: ca5a7e12cfd04f0b17917e2f7ad1190b
       size: 38148
   train:
-    cmd: python -m src.model.train --lr 1e-3 --hidden 128 64 --dropout 0.3 
-      --epochs 30
+    cmd: python -m src.model.train
     deps:
     - path: data/processed/scaler.pkl
       hash: md5
@@ -63,14 +62,14 @@ stages:
       size: 933
     - path: src/model/train.py
       hash: md5
-      md5: 46432027ffd2c316fda32314b717c8df
-      size: 6675
+      md5: b0834a747b6fdc5bed0574410eb0f10d
+      size: 7249
     outs:
     - path: metrics/train_metrics.json
       hash: md5
-      md5: 77afcfb22e05fce0038a850c6e830936
+      md5: 5504bda1dec4cf842b2d47fae9a634cc
       size: 108
     - path: models/best_model.pt
       hash: md5
-      md5: c007f5570721c6d8cedf877143d0e0c8
-      size: 47349
+      md5: c0b034613ac3ce88a03b783d5e53eae9
+      size: 18549
