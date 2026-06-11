@@ -16,3 +16,17 @@ stages:
       - data/processed/val.csv
       - data/processed/test.csv
       - data/processed/scaler.pkl
+  
+  train:
+    cmd: python -m src.model.train --lr 1e-3 --hidden 128 64 --dropout 0.3 --epochs 30
+    deps:
+      - src/model/train.py
+      - src/model/mlp.py
+      - data/processed/train.csv
+      - data/processed/val.csv
+      - data/processed/scaler.pkl
+    outs:
+      - models/best_model.pt
+    metrics:
+      - metrics/train_metrics.json:
+          cache: false
