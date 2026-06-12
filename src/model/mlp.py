@@ -4,7 +4,7 @@ import pandas as pd
 from src.config import NUM_CLASSES, INPUT_DIM
 
 class AirQualityMLP(nn.Module):
-    def __init__(self, input_dim=INPUT_DIM, hidden_dims = [128, 64], num_classes = NUM_CLASSES, dropout = 0.3):
+    def __init__(self, input_dim=INPUT_DIM, hidden_dims = [64, 32], num_classes = NUM_CLASSES, dropout = 0.2382538603211956):
         super().__init__()
 
         layers = []
