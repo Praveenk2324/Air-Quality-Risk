@@ -1,0 +1,35 @@
+# Use the official lightweight Python 3.11 image
+FROM python:3.11-slim
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Set environment variables to keep Python behavior predictable
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+
+# Install required system packages (gcc helps compile some ML libraries like shap)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements first to leverage Docker's layer caching
+COPY requirements.txt .
+
+# Install dependencies (--no-cache-dir keeps the image small)
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
+
+# Copy the source code
+COPY src/ ./src/
+
+# Copy the pre-trained model and fitted scaler
+# (Docker requires these folders to exist during the build process)
+COPY models/best_model.pt ./models/best_model.pt
+COPY data/processed/scaler.pkl ./data/processed/scaler.pkl
+
+# Expose the default FastAPI port
+EXPOSE 8000
+
+# By default, start the FastAPI serving layer
+CMD ["uvicorn", "src.serving.api:app", "--host", "0.0.0.0", "--port", "8000"]

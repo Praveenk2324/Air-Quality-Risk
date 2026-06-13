@@ -18,3 +18,33 @@ services:
       KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
       CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk' # A pre-generated valid random UUID
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  fastapi_server:
+      build: .
+      container_name: air_quality_api
+      ports:
+        - "8000:8000"
+      depends_on:
+        - kafka
+
+    # The streaming ML Scorer
+  ml_consumer:
+      build: .
+      container_name: air_quality_consumer
+      # Overrides the uvicorn command to run the consumer script
+      command: ["python", "-m", "src.serving.kafka_consumer"]
+      environment:
+        # Tell the consumer to look for the dockerized kafka, not localhost
+        - BOOTSTRAP_SERVERS=kafka:9092
+      depends_on:
+        - kafka
+
+    # The mock sensor data generator
+  sensor_producer:
+      build: .
+      container_name: air_quality_producer
+      command: ["python", "-m", "src.serving.kafka_producer"]
+      environment:
+        - BOOTSTRAP_SERVERS=kafka:9092
+      depends_on:
+        - kafka
