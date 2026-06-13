@@ -1,0 +1,29 @@
+torch>=2.2.0
+numpy>=1.26.0
+pandas>=2.2.0
+scikit-learn>=1.4.0
+requests>=2.31.0
+
+# MLOps
+mlflow>=2.11.0
+dvc>=3.49.0
+optuna>=3.6.0
+
+# Serving
+fastapi>=0.110.0
+uvicorn>=0.29.0
+pydantic>=2.6.0
+
+# Streaming
+kafka-python>=2.0.2
+
+# Explainability
+shap>=0.45.0
+
+# Monitoring
+evidently>=0.4.22
+
+# Dev
+pytest>=8.1.0
+black>=24.3.0
+ruff>=0.3.0
