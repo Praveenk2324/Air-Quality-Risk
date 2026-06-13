@@ -130,8 +130,21 @@ def predict(reading: PollutantReading):
     shap_vals = None
     if reading.explain:
         sv = _explainer.shap_values(scaled)
-        # sv shape: (n_classes, n_samples, n_features) — take predicted class
-        shap_vals = dict(zip(FEATURE_COLS, sv[tier][0].tolist()))
+        
+        # Handle SHAP version compatibility
+        if isinstance(sv, list):
+            # Older SHAP: list of arrays -> [ (n_samples, n_features), ... ]
+            sv_tier = sv[tier][0]
+        else:
+            # Newer SHAP: 3D numpy array -> (n_samples, n_features, n_classes)
+            if sv.shape[1] == len(FEATURE_COLS):
+                sv_tier = sv[0, :, tier]
+            else:
+                # Fallback if shape is (n_samples, n_classes, n_features)
+                sv_tier = sv[0, tier, :]
+                
+        # This replaces the old line that was causing the crash
+        shap_vals = dict(zip(FEATURE_COLS, sv_tier.tolist()))
 
     return RiskPrediction(
         risk_tier=tier,
