@@ -18,9 +18,9 @@ This project fetches real-world data from the OpenAQ v3 API, trains a PyTorch Mu
 ---
 
 ## Features
-* **Data Ingestion**: Automated retrieval of relevant WHO core pollutants (PM2.5, NO2, O3) via the OpenAQ v3 API.
+* **Data Ingestion**: Automated retrieval of relevant WHO core pollutants (PM2.5, NO2, O3) via the OpenAQ v3 API  (simulated by a script).
 * **Feature Engineering**: Cyclical time encoding (hour, month) and handling of heavily skewed environmental datasets.
-* **Deep Learning Model**: A PyTorch MLP classifier optimized for inference speed using `torch.no_grad()`.
+* **Deep Learning Model**: A PyTorch MLP classifier optimized for inference .
 * **Hyperparameter Tuning**: Automated search space optimization using Optuna.
 * **RESTful API**: Fast and scalable scoring endpoints built with FastAPI.
 * **Explainable AI (XAI)**: Integrated `shap.KernelExplainer` to compute feature attributions on-the-fly.
